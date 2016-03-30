@@ -50,7 +50,7 @@ class AutoCombiner extends \Combiner
 		$objLayout = $GLOBALS['objPage']->getRelated('layout');
 		
 		// prepare browser list
-		$browsers = explode(',', $objLayout->browsers);
+		$browsers = explode(',', (!empty($objLayout->browsers)) ? $objLayout->browsers : 'last 2 versions'); // default is last 2 versions
 		array_walk($browsers, function (&$value) { $value = trim(html_entity_decode($value)); });
 
 		
