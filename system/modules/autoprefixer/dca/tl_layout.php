@@ -33,6 +33,7 @@ $GLOBALS['TL_DCA']['tl_layout']['fields']['browsers'] = array
 	'default'                 => 'last 2 versions',
 	'inputType'               => 'text',
 	'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+	'save_callback'   	  => array(array('tl_layout_autoprefixer', 'checkBrowserList')),
 	'sql'                     => "varchar(255) NOT NULL default ''"
 );
 
@@ -41,35 +42,10 @@ $GLOBALS['TL_DCA']['tl_layout']['fields']['browsers'] = array
 	
 class tl_layout_autoprefixer extends tl_layout
 {
-
-	public function checkBrowserQuery (DataContainer $dc)
+	public function checkBrowserList ($varValue)
 	{
-		// get block element
-		$colBlocks = \ContentBlocksModel::findByPid($dc->activeRecord->pid, array('order'=>'sorting ASC'));
-		
-		if ($colBlocks === null)
-		{
-			return array();
-		}
-		
-		$return = array();
-		$strGroup = 'contentblocks';
-
-		// generate array with elements 
-		foreach ($colBlocks as $objBlock)
-		{
-			// group
-			if ($objBlock->type == 'group')
-			{
-				$strGroup = $objBlock->title;
-			}
-			else
-			{
-				$return[$strGroup][$objBlock->alias] = $objBlock->title;
-			}
-		}
-
-		return $return;
+		// if nothing entered set to default value
+		return (empty($varValue)) ? 'last 2 versions' : $varValue;
 	}
-
 }
+
