@@ -23,7 +23,7 @@ $GLOBALS['TL_DCA']['tl_layout']['fields']['autoprefix'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_layout']['autoprefix'],
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
-	'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'w50 m12'),
+	'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'clr w50 m12'),
 	'sql'                     => "char(1) NOT NULL default ''"
 );
 $GLOBALS['TL_DCA']['tl_layout']['fields']['browsers'] = array
